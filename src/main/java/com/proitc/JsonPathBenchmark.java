@@ -12,37 +12,35 @@ import org.openjdk.jmh.annotations.Mode;
 @BenchmarkMode(Mode.Throughput)
 public class JsonPathBenchmark {
 
-    public static void main(String[] args) throws Exception {
-        org.openjdk.jmh.Main.main(args);
-    }
+  public static void main(String[] args) throws Exception {
+    org.openjdk.jmh.Main.main(args);
+  }
 
-    @Benchmark
-    public void givenJsonString_whenCountPropertiesWithJsonPath_thenSize() {
-        String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
+  @Benchmark
+  public void benchmarkJSONValueParse() {
+    String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
 
-        JSONObject jsonObject = (JSONObject) JSONValue.parse(jsonString);
+    JSONObject jsonObject = (JSONObject) JSONValue.parse(jsonString);
 
-//        assertThat(jsonObject)
-//          .size()
-//          .isEqualTo(3);
-    }
+    jsonObject.size();
+  }
 
-    @Benchmark
-    public void givenJsonString_whenReadWithJsonPath_thenGetSize() {
-        String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
+  @Benchmark
+  public void benchmarkJsonPathRead() {
+    String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
 
-        JSONArray jsonArray = JsonPath.read(jsonString, "$.*");
+    JSONArray jsonArray = JsonPath.read(jsonString, "$.*");
 
-//        assertThat(jsonArray.size()).isEqualTo(3);
-    }
+    jsonArray.size();
+  }
 
-    @Benchmark
-    public void givenJsonString_whenProcessLength_thenGetSize() {
-        String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
+  @Benchmark
+  public void benchmarkJsonPathReadLength() {
+    String jsonString = "{'username':'jhon.user','email':'jhon@company.com','age':'28'}";
 
-        JSONArray jsonArray = JsonPath.read(jsonString, "$.*.length()");
+    JSONArray jsonArray = JsonPath.read(jsonString, "$.*.length()");
 
-//        assertThat(jsonArray.size()).isEqualTo(3);
-    }
+    jsonArray.size();
+  }
 
 }
